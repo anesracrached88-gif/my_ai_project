@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI HUB - Ultimate Directory</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        body { background: #020617; color: white; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .active-cat { background: #2563eb !important; border: none; box-shadow: 0 0 20px rgba(37, 99, 235, 0.4); }
+        .card:hover { border-color: #3b82f6; transform: translateY(-5px); transition: 0.3s; }
+        ::-webkit-scrollbar { height: 5px; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+    </style>
+</head>
+<body class="p-4 md:p-10">
+
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-10 animate__animated animate__fadeIn">
+            <h1 class="text-6xl font-black mb-6 italic tracking-tighter">AI <span class="text-blue-600">HUB</span></h1>
+            <form action="/" method="get" class="relative max-w-xl mx-auto">
+                <input type="text" name="search" placeholder="Cherche anything (Movies, Games, AI...)" value="{{ search_query }}"
+                       class="w-full py-4 px-6 rounded-2xl glass outline-none focus:ring-2 focus:ring-blue-600 text-lg">
+            </form>
+        </div>
+
+        <div class="flex overflow-x-auto gap-3 mb-12 pb-4 no-scrollbar">
+            {% for cat in categories %}
+            <a href="/?category={{ cat }}" 
+               class="px-6 py-3 rounded-2xl glass font-bold text-sm whitespace-nowrap flex items-center gap-3 transition hover:bg-white/5 {% if current_cat == cat %} active-cat {% endif %}">
+                <span>{{ icons.get(cat, '📁') }}</span> {{ cat }}
+            </a>
+            {% endfor %}
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {% for item in items %}
+            <div class="glass p-6 rounded-[2.5rem] card animate__animated animate__zoomIn">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-[10px] font-bold opacity-40 uppercase tracking-widest">{{ item.cat }}</span>
+                    <span class="text-xs font-bold px-3 py-1 rounded-full {% if item.price == 'Free' %} bg-green-500/20 text-green-400 {% else %} bg-blue-500/20 text-blue-400 {% endif %}">
+                        {{ item.price }}
+                    </span>
+                </div>
+                <h3 class="text-2xl font-bold mb-3">{{ item.name }}</h3>
+                <p class="text-slate-500 text-sm mb-8 leading-relaxed h-12 overflow-hidden">{{ item.desc }}</p>
+                <a href="{{ item.link }}" target="_blank" class="block w-full py-4 bg-white text-black text-center rounded-2xl font-black hover:bg-blue-600 hover:text-white transition">
+                    VISIT SITE
+                </a>
+            </div>
+            {% else %}
+            <div class="col-span-full text-center py-20">
+                <p class="text-2xl text-slate-600 mb-8 font-bold italic">Nothing found for "{{ search_query }}"</p>
+                <a href="https://gemini.google.com" class="px-10 py-4 bg-blue-600 rounded-full font-black animate__animated animate__pulse animate__infinite">ASK GEMINI AI</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+</html>
