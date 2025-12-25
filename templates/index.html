@@ -3,70 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate AI Hub | Global Directory</title>
+    <title>Ultimate Hub | 100+ Resources</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: white; }
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: white; overflow-x: hidden; }
         .nav-scroll::-webkit-scrollbar { height: 4px; }
-        .nav-scroll::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
-        .card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid #1e293b; }
-        .card:hover { transform: translateY(-8px); border-color: #3b82f6; box-shadow: 0 20px 40px rgba(59, 130, 246, 0.1); }
-        .gradient-text { background: linear-gradient(135deg, #60a5fa, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-scroll::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
+        .card { transition: all 0.3s ease; border: 1px solid #1e293b; background: rgba(30, 41, 59, 0.5); backdrop-filter: blur(10px); }
+        .card:hover { transform: translateY(-10px); border-color: #3b82f6; box-shadow: 0 0 30px rgba(59, 130, 246, 0.2); }
     </style>
 </head>
-<body class="p-4 md:p-10">
+<body class="p-6">
 
-    <header class="text-center mb-16">
-        <h1 class="text-6xl font-black mb-4 tracking-tighter gradient-text">ULTIMATE HUB</h1>
-        <p class="text-gray-400 text-xl font-medium">100+ Premium Resources & Tools</p>
+    <header class="text-center mb-12">
+        <h1 class="text-5xl font-black mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">ULTIMATE HUB</h1>
+        <p class="text-gray-400">The world's largest directory for AI, Movies, and Tech.</p>
     </header>
 
-    <div class="max-w-3xl mx-auto mb-16">
-        <form action="/" method="GET" class="relative group">
-            <input type="text" name="search" placeholder="Search across 20+ categories..." 
-                   class="w-full p-5 pl-8 rounded-2xl bg-gray-800/50 border border-gray-700 focus:outline-none focus:border-blue-500 text-white text-lg backdrop-blur-md transition-all">
-            <button type="submit" class="absolute right-3 top-2.5 bg-blue-600 px-8 py-3 rounded-xl hover:bg-blue-700 transition font-bold shadow-lg">Find</button>
+    <div class="max-w-2xl mx-auto mb-12">
+        <form action="/" method="GET" class="flex gap-2">
+            <input type="text" name="search" placeholder="Search tools or categories..." 
+                   class="w-full p-4 rounded-2xl bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-blue-500 outline-none transition">
+            <button type="submit" class="bg-blue-600 px-8 py-4 rounded-2xl font-bold hover:bg-blue-700">Search</button>
         </form>
     </div>
 
-    <nav class="nav-scroll flex overflow-x-auto gap-3 mb-16 pb-4 max-w-7xl mx-auto px-2">
+    <nav class="nav-scroll flex overflow-x-auto gap-3 mb-12 pb-4 px-2">
         {% for cat in categories %}
         <a href="/?category={{ cat }}" 
-           class="whitespace-nowrap px-6 py-3 rounded-2xl transition font-bold text-sm border {{ 'bg-blue-600 border-blue-500 shadow-xl' if cat == current_cat else 'bg-gray-800 border-gray-700 hover:bg-gray-700' }}">
+           class="whitespace-nowrap px-6 py-3 rounded-xl font-bold border {{ 'bg-blue-600 border-blue-500 shadow-lg shadow-blue-900/40' if cat == current_cat else 'bg-gray-800 border-gray-700' }}">
            {{ icons[cat] or '📁' }} {{ cat }}
         </a>
         {% endfor %}
     </nav>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-[1400px] mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {% for item in items %}
-        <div class="card bg-gray-800/40 backdrop-blur-lg p-6 rounded-3xl flex flex-col justify-between">
+        <div class="card p-6 rounded-3xl flex flex-col justify-between">
             <div>
-                <div class="flex justify-between items-center mb-5">
-                    <span class="text-[10px] font-black uppercase tracking-widest text-blue-400 bg-blue-900/30 px-3 py-1 rounded-full border border-blue-500/20">{{ item.cat }}</span>
-                    <span class="text-[10px] text-gray-500 font-bold uppercase">{{ item.price }}</span>
+                <div class="flex justify-between mb-4">
+                    <span class="text-[10px] font-bold bg-blue-900/50 text-blue-400 px-2 py-1 rounded">{{ item.cat }}</span>
+                    <span class="text-[10px] text-gray-500">{{ item.price }}</span>
                 </div>
-                <h3 class="text-2xl font-black mb-3">{{ item.name }}</h3>
-                <p class="text-gray-400 text-sm leading-relaxed mb-8">{{ item.desc }}</p>
+                <h3 class="text-2xl font-bold mb-2">{{ item.name }}</h3>
+                <p class="text-gray-400 text-sm mb-6 leading-relaxed">{{ item.desc }}</p>
             </div>
-            <a href="{{ item.link }}" target="_blank" 
-               class="w-full text-center bg-white text-black hover:bg-blue-600 hover:text-white py-4 rounded-2xl transition-all font-black text-sm tracking-widest uppercase shadow-xl">
-                Access Now ⚡
+            <a href="{{ item.link }}" target="_blank" class="w-full text-center bg-white text-black py-4 rounded-2xl font-black hover:bg-blue-500 hover:text-white transition uppercase text-xs tracking-widest">
+                Explore Tool 🚀
             </a>
         </div>
         {% endfor %}
     </div>
 
-    <footer class="mt-32 text-center text-gray-500 border-t border-gray-800/50 pt-10">
-        <p class="font-bold tracking-widest uppercase text-xs">© 2025 ULTIMATE AI HUB - GLOBAL DATABASE</p>
-    </footer>
-
     <script type="text/javascript">
         var app_url = 'https://shrinkme.io/';
-        var app_api_token = '0000000000000000000000000000000000000000'; // YOUR API KEY HERE
+        // !!! IMPORTANT: Replace with your actual ShrinkMe API Key !!!
+        var app_api_token = '0000000000000000000000000000000000000000'; 
         var app_advert = 2;
-        var app_exclude_domains = ["github.com", "render.com", "google.com"]; 
+        var app_exclude_domains = ["github.com", "render.com", "onrender.com", window.location.hostname]; 
     </script>
     <script src='https://shrinkme.io/js/full-page-script.js'></script>
 
