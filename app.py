@@ -3,50 +3,34 @@ import os
 
 app = Flask(__name__)
 
-# قاعدة البيانات الشاملة (التي كانت في بداية مشروعنا)
+# قاعدة البيانات الشاملة
 database = [
-    # --- ذكاء اصطناعي ---
+    # ذكاء اصطناعي
     {"name": "Gemini AI", "desc": "مساعد جوجل الذكي للبرمجة والبحث.", "cat": "AI Partner", "link": "https://gemini.google.com", "price": "Free"},
     {"name": "ChatGPT", "desc": "نموذج لغوي قوي من OpenAI.", "cat": "AI Partner", "link": "https://chat.openai.com", "price": "Freemium"},
     {"name": "Claude AI", "desc": "منافس قوي في التحليل والبرمجة.", "cat": "AI Partner", "link": "https://claude.ai", "price": "Freemium"},
-    {"name": "Perplexity", "desc": "محرك بحث ذكي مع المصادر.", "cat": "AI Partner", "link": "https://perplexity.ai", "price": "Free"},
-
-    # --- أفلام ومسلسلات ---
+    # أفلام
     {"name": "Netflix", "desc": "أضخم منصة للأفلام والمسلسلات.", "cat": "Movies", "link": "https://netflix.com", "price": "Paid"},
     {"name": "Fmovies", "desc": "مشاهدة أحدث الأفلام مجاناً.", "cat": "Movies", "link": "https://fmovies.to", "price": "Free"},
     {"name": "Shahid", "desc": "أكبر منصة للمحتوى العربي.", "cat": "Movies", "link": "https://shahid.mbc.net", "price": "Freemium"},
-    {"name": "Disney+", "desc": "عالم مارفل وديزني وبيكسار.", "cat": "Movies", "link": "https://disneyplus.com", "price": "Paid"},
-
-    # --- ألعاب ---
+    # ألعاب
     {"name": "FitGirl Repacks", "desc": "أشهر موقع للألعاب المضغوطة.", "cat": "Games", "link": "https://fitgirl-repacks.site", "price": "Free"},
     {"name": "Steam", "desc": "متجر الألعاب الأكبر عالمياً.", "cat": "Games", "link": "https://steampowered.com", "price": "Freemium"},
-    {"name": "DODI Repacks", "desc": "بديل ممتاز لتحميل الألعاب.", "cat": "Games", "link": "https://dodi-repacks.site", "price": "Free"},
-
-    # --- عمل حر وأرباح ---
+    # عمل حر
     {"name": "Upwork", "desc": "أكبر منصة للعمل الحر عالمياً.", "cat": "Freelance", "link": "https://upwork.com", "price": "Free"},
-    {"name": "Fiverr", "desc": "بيع وشراء الخدمات المصغرة.", "cat": "Freelance", "link": "https://fiverr.com", "price": "Free"},
-    {"name": "مستقل", "desc": "أكبر منصة عربية للعمل الحر.", "cat": "Freelance", "link": "https://mostaql.com", "price": "Free"}
+    {"name": "Fiverr", "desc": "بيع وشراء الخدمات المصغرة.", "cat": "Freelance", "link": "https://fiverr.com", "price": "Free"}
 ]
 
-# أيقونات التصنيفات
 cat_icons = {
-    "AI Partner": "🤖", 
-    "Movies": "🎬", 
-    "Games": "🎮", 
-    "Freelance": "💰"
+    "AI Partner": "🤖", "Movies": "🎬", "Games": "🎮", "Freelance": "💰"
 }
 
 @app.route('/')
 def index():
-    # جلب التصنيف الحالي أو الافتراضي (Movies)
-    current_cat = request.args.get('category', 'Movies')
-    # جلب كلمة البحث إن وجدت
+    current_cat = request.args.get('category', 'AI Partner')
     search_query = request.args.get('search', '').lower()
-    
-    # استخراج قائمة التصنيفات الفريدة
     categories = sorted(list(set(item['cat'] for item in database)))
 
-    # منطق الفلترة والبحث
     if search_query:
         results = [i for i in database if search_query in i['name'].lower() or search_query in i['cat'].lower()]
     else:
@@ -56,6 +40,5 @@ def index():
                            current_cat=current_cat, icons=cat_icons)
 
 if __name__ == '__main__':
-    # إعداد المنفذ لـ Render
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
