@@ -31,7 +31,7 @@
 
     <nav class="nav-scroll flex overflow-x-auto gap-3 mb-12 pb-4 px-2">
         {% for cat in categories %}
-        <a href="/?category={{ cat }}" 
+        <a href="/?category={{cat }}" 
            class="whitespace-nowrap px-6 py-3 rounded-xl font-bold border {{ 'bg-blue-600 border-blue-500 shadow-lg shadow-blue-900/40' if cat == current_cat else 'bg-gray-800 border-gray-700' }}">
            {{ icons[cat] or '📁' }} {{ cat }}
         </a>
@@ -59,7 +59,7 @@
     <script type="text/javascript">
         var app_url = 'https://shrinkme.io/';
         // !!! IMPORTANT: Replace with your actual ShrinkMe API Key !!!
-        var app_api_token = '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'; 
+        var app_api_token = 'fbd58a11631cf9aa24ef8152c1e9615e4dc526ca'; 
         var app_advert = 2;
         var app_exclude_domains = ["github.com", "render.com", "onrender.com", window.location.hostname]; 
     </script>
